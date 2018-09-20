@@ -7,6 +7,12 @@ class MapObject:
         self.char=char
         self.map=map
 
+    def key_handler_onpress(self, key_name):
+        pass
+
+    def key_handler_release(self, key_name):
+        pass
+
     def cross(self, obj):
         if obj.pos==self.pos:
             return True
