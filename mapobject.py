@@ -1,9 +1,12 @@
-import map
+import screen
 
 class MapObject:
     def __init__(self, map, pos=(0,0)):
         self.pos=pos
         self.map=map
+
+    def get_pos(self):
+        return self.pos
 
     def cross(self, obj):
         if obj.pos==self.pos:
