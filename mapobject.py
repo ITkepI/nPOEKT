@@ -1,9 +1,10 @@
-import screen
+import screen, rendersystem
 
 class MapObject:
-    def __init__(self, map, pos=(0,0)):
+    def __init__(self, map, rensys, pos=(0,0)):
         self.pos=pos
         self.map=map
+        self.rensys=rensys
 
     def get_pos(self):
         return self.pos
@@ -27,8 +28,8 @@ class MapObject:
         pass
 
 class DynamicObject(MapObject):
-    def __init__(self, map, pos=(0,0), char='H', velocity=(0,0)):
-        super().__init__(map, pos)
+    def __init__(self, map, rensys, pos=(0,0), char='H', velocity=(0,0)):
+        super().__init__(map, rensys, pos)
         self.velocity=velocity
         self.char=char
 
@@ -38,9 +39,8 @@ class DynamicObject(MapObject):
         self.pos=(pos_x,pos_y)
 
     def update(self):
-        self.map.set_ch(self.pos)
         self.update_pos();
-        self.map.set_ch(self.pos, self.char)
+        self.rensys.render(pos=self.pos)
 
 class BigObject(MapObject):
     def __init__(self, map, pos=(0,0), object_list=[]):
