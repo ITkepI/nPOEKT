@@ -1,14 +1,10 @@
 import time,sys
-from sdl2 import *
 import screen,mapobject,rendersystem
 import DEFAULT
 
-win = SDL_CreateWindow(b"Hello World",
-                              SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                              *DEFAULT.size, SDL_WINDOW_SHOWN)
-			      
-ren=SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)
+worldren=rendersystem.WorldRender()
 
+ren=worldren.get_render()
 
 tex=rendersystem.load_texture_from_image(b"resources/hello.bmp",ren)
 
@@ -29,5 +25,5 @@ map.set_main(person)
 
 while True:
     playscreen.update()
-    SDL_RenderPresent(ren)
+    worldren.present()
     time.sleep(.3)
