@@ -1,29 +1,33 @@
 import time,sys
-import screen,mapobject,rendersystem
-import DEFAULT
+import screen,mapobject,rendersystem, event
+import DEFAULT, GLOBAL
+import sdl2
+from sdl2 import SDL_Color
+from sdl2.sdlttf import TTF_Init
+
+TTF_Init()
 
 worldren=rendersystem.WorldRender()
 
 ren=worldren.get_render()
 
-tex=rendersystem.load_texture_from_image(b"resources/hello.bmp",ren)
-
-screenrensys=rendersystem.RenderSystem(tex, ren)
-screenrensys.render(full=True)
-playscreen=screen.Screen(screenrensys)
+playscreen=screen.Screen(ren)
 map=screen.Map()
 
 playscreen.add_element(map)
-#playscreen.update()
 
-personrensys=rendersystem.RenderSystem(rendersystem.load_texture_from_image(b"resources/HalfOgreFighter3.png", ren), ren)
-
-person=mapobject.DynamicObject(map, personrensys, velocity=(0,1), char='$')
+person=mapobject.DynamicObject(map, ren, char=b'$')
 
 map.add_object(person)
 map.set_main(person)
 
-while True:
+eventhandler=event.EventHandler()
+
+eventhandler.add_object(person)
+eventhandler.add_object(playscreen)
+
+while not GLOBAL.gameover:
+    eventhandler.event_handler()
     playscreen.update()
     worldren.present()
     time.sleep(.3)

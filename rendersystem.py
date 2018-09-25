@@ -45,7 +45,7 @@ def load_texture_from_image(image_path, ren):
     return tex
     
     
-def load_texture_from_text(message, renderer, fontFile=b"open-sans/OpenSans-Bold.ttf", color=SDL_Color(255,255,255), fontSize=10):
+def load_texture_from_text(message, renderer, fontFile=b"ttfs/InconsolataGo-Regular.ttf", color=SDL_Color(0,0,0), fontSize=10):
     """
 
     :rtype : SDL_Texture

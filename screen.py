@@ -1,23 +1,32 @@
 import os
 import DEFAULT
 import terminal
+import rendersystem
+import sys, sdl2
 
 class Screen:
-    def __init__(self, render, size=DEFAULT.size):
-        self.render=render
+    def __init__(self, render, background_path=b"resources/back.png", size=DEFAULT.size):
+        tex=rendersystem.load_texture_from_image(background_path, render)
+        self.rendersys=rendersystem.RenderSystem(tex,render)
         self.render_list=[]
 
     def add_element(self,el):
         self.render_list+=[el]
 
     def update(self):
-        self.render.render(full=True)
+        #self.event_handler(sdl2.SDL_QUIT)
+        self.rendersys.render(full=True)
         for i in self.render_list:
             i.update()
 
     def print(self):
         for i in self.render_list:
             i.print()
+    
+    def event_handler(self, event):
+        if event.type==sdl2.SDL_QUIT:
+            sdl2.SDL_Quit()
+            sys.exit()
 
 class ScreenElement():
     """docstring for ScreenElement"""
